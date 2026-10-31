@@ -49,6 +49,12 @@ body {
         background 1.5s ease;
 }
 
+/* Utility: reliably hide loading and error states */
+.hidden {
+    display: none !important;
+}
+
+
 
 /* =========================================
    BACKGROUND IMAGE
