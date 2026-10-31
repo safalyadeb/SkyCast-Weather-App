@@ -1005,16 +1005,125 @@ body.night .stars {
 
     top: 50%;
 
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    pointer-events: none;
+}
+
+.current-time-dot {
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(255,255,255,0.95);
+    border-radius: 50%;
+    background: #ffd76a;
+    box-shadow: 0 0 12px rgba(255,215,106,0.8);
+}
+
+.current-time-label {
+    padding: 5px 8px;
+    border: 1px solid rgba(255,200,100,0.65);
+    border-radius: 8px;
+    background: rgba(9,18,38,0.78);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+}
+
 /* =========================================
-   FORECAST GRID + VISIBILITY STATE FIX
+   SKY STATUS
 ========================================= */
 
-/* Hidden must win over component display rules. */
-#loading.hidden,
-#errorMessage.hidden,
-#weatherContent.hidden,
-.hidden {
-    display: none !important;
+.sky-status {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+    padding: 18px 22px;
+    border-radius: 20px;
+}
+
+.sky-status-icon {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.12);
+    font-size: 20px;
+}
+
+.sky-status-main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.sky-status-main span,
+.sky-status-right span {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.sky-status-main strong,
+.sky-status-right strong {
+    color: #fff;
+    font-size: 13px;
+}
+
+.sky-status-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+/* =========================================
+   FORECAST
+========================================= */
+
+.forecast-section {
+    margin-top: 26px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.section-heading h2 {
+    margin-top: 7px;
+    color: #fff;
+    font-size: clamp(22px, 3vw, 28px);
+}
+
+.unit-toggle {
+    min-width: 48px;
+    height: 42px;
+    padding: 0 13px;
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 13px;
+    background: rgba(255,255,255,0.13);
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.unit-toggle:hover {
+    background: rgba(255,255,255,0.22);
+    transform: translateY(-2px);
 }
 
 .forecast-grid {
@@ -1038,11 +1147,12 @@ body.night .stars {
     background: rgba(255,255,255,0.08);
     text-align: center;
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .forecast-card.today {
+    border-color: rgba(255,255,255,0.3);
     background: rgba(255,255,255,0.16);
-    border-color: rgba(255,255,255,0.28);
 }
 
 .forecast-day {
@@ -1053,6 +1163,7 @@ body.night .stars {
 }
 
 .forecast-icon {
+    color: #ffe19a;
     font-size: 25px;
     line-height: 1;
 }
@@ -1080,14 +1191,206 @@ body.night .stars {
     color: rgba(255,255,255,0.62);
 }
 
+/* =========================================
+   LOADING AND ERROR STATES
+========================================= */
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    min-height: 90px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.spinner {
+    width: 23px;
+    height: 23px;
+    border: 3px solid rgba(255,255,255,0.25);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: skycast-spin 0.8s linear infinite;
+}
+
+@keyframes skycast-spin {
+    to { transform: rotate(360deg); }
+}
+
+.error {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 18px;
+    padding: 13px 16px;
+    border: 1px solid rgba(255,120,120,0.35);
+    border-radius: 14px;
+    background: rgba(120,25,35,0.3);
+    color: #ffe1e1;
+    font-size: 13px;
+}
+
+.error i {
+    color: #ffaaaa;
+}
+
+/* Always let the hidden state override component display rules. */
+#loading.hidden,
+#errorMessage.hidden,
+#weatherContent.hidden,
+.hidden {
+    display: none !important;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 28px;
+    padding: 15px 2px 0;
+    border-top: 1px solid rgba(255,255,255,0.13);
+    color: rgba(255,255,255,0.66);
+    font-size: 11px;
+}
+
+footer a {
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================
+   RESPONSIVE LAYOUT
+========================================= */
+
 @media (max-width: 900px) {
     .forecast-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
+
+    .weather-details {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sun-card {
+        gap: 16px;
+        padding: 18px;
+    }
 }
 
 @media (max-width: 600px) {
+    .app {
+        width: min(94%, 520px);
+        padding-top: 20px;
+    }
+
+    .header {
+        gap: 12px;
+    }
+
+    .brand-icon {
+        width: 46px;
+        height: 46px;
+    }
+
+    .brand h1 {
+        font-size: 22px;
+    }
+
+    .live-clock {
+        padding: 9px 11px;
+        font-size: 11px;
+    }
+
+    .search-section {
+        flex-direction: column;
+    }
+
+    .search-box,
+    .location-btn {
+        width: 100%;
+    }
+
+    .hero-card {
+        padding: 24px 18px;
+    }
+
+    .hero-top h2 {
+        font-size: 28px;
+    }
+
+    .temperature {
+        font-size: 82px;
+        letter-spacing: -5px;
+    }
+
+    .temperature sup {
+        font-size: 30px;
+    }
+
+    .temperature-area {
+        gap: 12px;
+    }
+
+    .weather-details {
+        gap: 9px;
+        margin-top: 28px;
+    }
+
+    .detail {
+        gap: 9px;
+        padding: 11px 9px;
+    }
+
+    .detail-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .sun-card {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    .sun-track-area {
+        grid-column: 1 / -1;
+        grid-row: 2;
+    }
+
+    .sun-side:last-child {
+        justify-self: end;
+    }
+
+    .sky-status {
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .sky-status-right strong {
+        font-size: 11px;
+    }
+
     .forecast-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .forecast-card {
+        padding: 15px 10px;
+    }
+
+    footer {
+        align-items: flex-start;
+        flex-direction: column;
     }
 }
