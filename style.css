@@ -1,0 +1,1000 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+
+    --white: #ffffff;
+
+    --muted:
+        rgba(255, 255, 255, 0.72);
+
+    --glass:
+        rgba(255, 255, 255, 0.12);
+
+    --glass-border:
+        rgba(255, 255, 255, 0.22);
+
+    --radius: 25px;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        "Inter",
+        sans-serif;
+
+    color: white;
+
+    overflow-x: hidden;
+
+    background: #071226;
+
+    transition:
+        background 1.5s ease;
+}
+
+
+/* =========================================
+   BACKGROUND IMAGE
+========================================= */
+
+.sky {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -10;
+
+    overflow: hidden;
+
+    background-image:
+        url("sky-cycle.jpg");
+
+    background-size: cover;
+
+    background-position:
+        center center;
+
+    background-repeat: no-repeat;
+
+    transition:
+        filter 1.5s ease,
+        transform 1.5s ease;
+}
+
+
+/* =========================================
+   BACKGROUND OVERLAY
+========================================= */
+
+.sky::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0, 8, 25, 0.12),
+            rgba(0, 8, 25, 0.22)
+        );
+
+    pointer-events: none;
+
+    transition:
+        background 1.5s ease;
+}
+
+
+/* =========================================
+   DAY
+========================================= */
+
+body.day .sky {
+
+    filter:
+        brightness(1.08)
+        saturate(1.08);
+}
+
+
+/* =========================================
+   MORNING
+========================================= */
+
+body.morning .sky {
+
+    filter:
+        brightness(1.02)
+        saturate(1.15);
+}
+
+
+/* =========================================
+   SUNSET
+========================================= */
+
+body.sunset .sky {
+
+    filter:
+        brightness(0.96)
+        saturate(1.18);
+}
+
+
+/* =========================================
+   NIGHT
+========================================= */
+
+body.night .sky {
+
+    filter:
+        brightness(0.70)
+        saturate(0.88);
+}
+
+
+body.night .sky::before {
+
+    background:
+        rgba(0, 8, 35, 0.25);
+}
+
+
+/* =========================================
+   STARS
+========================================= */
+
+.stars {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    background-image:
+        radial-gradient(
+            circle,
+            white 1px,
+            transparent 1.5px
+        ),
+        radial-gradient(
+            circle,
+            rgba(255,255,255,0.7) 1px,
+            transparent 1.5px
+        );
+
+    background-size:
+        100px 100px,
+        180px 180px;
+
+    animation:
+        starsMove 60s linear infinite;
+
+    transition:
+        opacity 1.5s ease;
+}
+
+
+body.night .stars {
+    opacity: 0.55;
+}
+
+
+.stars-two {
+
+    background-size:
+        230px 230px,
+        350px 350px;
+
+    animation-duration:
+        90s;
+}
+
+
+@keyframes starsMove {
+
+    from {
+        transform:
+            translateY(0);
+    }
+
+    to {
+        transform:
+            translateY(-80px);
+    }
+
+}
+
+
+/* =========================================
+   CELESTIAL OBJECTS
+========================================= */
+
+.celestial {
+
+    position: absolute;
+
+    width: 72px;
+    height: 72px;
+
+    border-radius: 50%;
+
+    z-index: 5;
+
+    pointer-events: none;
+
+    transition:
+        left 1s linear,
+        top 1s linear,
+        opacity 0.8s ease;
+}
+
+
+/* =========================================
+   SUN
+========================================= */
+
+.sun {
+
+    background:
+        radial-gradient(
+            circle,
+            #fffde0 0%,
+            #fff18b 35%,
+            #ffd13d 65%,
+            #ff9c00 100%
+        );
+
+    box-shadow:
+        0 0 25px #fff5a8,
+        0 0 70px rgba(255, 210, 70, 0.75),
+        0 0 140px rgba(255, 180, 20, 0.35);
+}
+
+
+.sun-glow {
+
+    position: absolute;
+
+    inset: -35px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 225, 100, 0.35),
+            transparent 68%
+        );
+}
+
+
+/* =========================================
+   MOON
+========================================= */
+
+.moon {
+
+    opacity: 0;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #ffffff,
+            #e7ebf4 60%,
+            #aeb7c8 100%
+        );
+
+    box-shadow:
+        0 0 25px
+        rgba(255,255,255,0.8),
+
+        0 0 80px
+        rgba(170,190,255,0.3);
+}
+
+
+.crater {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background:
+        rgba(105,115,135,0.23);
+}
+
+
+.crater-1 {
+
+    width: 12px;
+    height: 12px;
+
+    left: 17px;
+    top: 19px;
+}
+
+
+.crater-2 {
+
+    width: 8px;
+    height: 8px;
+
+    left: 43px;
+    top: 37px;
+}
+
+
+.crater-3 {
+
+    width: 14px;
+    height: 14px;
+
+    left: 27px;
+    top: 49px;
+}
+
+
+/* =========================================
+   APP
+========================================= */
+
+.app {
+
+    width:
+        min(1180px, 92%);
+
+    margin:
+        auto;
+
+    padding:
+        28px 0 40px;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+}
+
+
+.brand-icon {
+
+    width: 54px;
+    height: 54px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 17px;
+
+    background:
+        rgba(255,255,255,0.14);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.25);
+
+    backdrop-filter:
+        blur(15px);
+
+    font-size: 24px;
+}
+
+
+.brand h1 {
+
+    font-size: 25px;
+
+    font-weight: 800;
+}
+
+
+.brand span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 11px;
+
+    color: var(--muted);
+}
+
+
+.live-clock {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        11px 16px;
+
+    border-radius: 50px;
+
+    background:
+        rgba(255,255,255,0.13);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.2);
+
+    backdrop-filter:
+        blur(15px);
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.search-section {
+
+    display: flex;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+
+.search-box {
+
+    flex: 1;
+
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding-left: 20px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,0.13);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.2);
+
+    backdrop-filter:
+        blur(20px);
+}
+
+
+.search-box input {
+
+    flex: 1;
+
+    min-width: 0;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 14px;
+}
+
+
+.search-box input::placeholder {
+
+    color:
+        rgba(255,255,255,0.65);
+}
+
+
+.search-box button {
+
+    height: 44px;
+
+    margin-right: 7px;
+
+    padding:
+        0 18px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background: white;
+
+    color: #15223c;
+
+    font-family: inherit;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        0.25s;
+}
+
+
+.search-box button:hover {
+
+    transform:
+        translateY(-2px);
+}
+
+
+.location-btn {
+
+    height: 58px;
+
+    padding:
+        0 20px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,0.13);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.2);
+
+    color: white;
+
+    font-family: inherit;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        0.25s;
+}
+
+
+.location-btn:hover {
+
+    background:
+        rgba(255,255,255,0.2);
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================
+   GLASS
+========================================= */
+
+.glass {
+
+    background:
+        rgba(20,35,65,0.25);
+
+    border:
+        1px solid
+        var(--glass-border);
+
+    backdrop-filter:
+        blur(22px);
+
+    -webkit-backdrop-filter:
+        blur(22px);
+
+    box-shadow:
+        0 25px 60px
+        rgba(0,0,0,0.18);
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero-card {
+
+    padding:
+        34px;
+
+    border-radius:
+        var(--radius);
+}
+
+
+.hero-top {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        flex-start;
+}
+
+
+.label {
+
+    font-size: 10px;
+
+    letter-spacing:
+        1.5px;
+
+    font-weight: 700;
+
+    color:
+        var(--muted);
+}
+
+
+.hero-top h2 {
+
+    margin-top: 8px;
+
+    font-size:
+        clamp(28px,5vw,42px);
+}
+
+
+.hero-top p {
+
+    margin-top: 5px;
+
+    color:
+        var(--muted);
+
+    font-size: 13px;
+}
+
+
+.weather-condition {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color:
+        var(--muted);
+
+    font-size: 12px;
+}
+
+
+.weather-condition i {
+
+    font-size: 43px;
+}
+
+
+/* =========================================
+   TEMPERATURE
+========================================= */
+
+.temperature-area {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 18px;
+
+    margin-top: 27px;
+}
+
+
+.temperature {
+
+    font-size:
+        clamp(82px,13vw,125px);
+
+    line-height:
+        0.9;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        -7px;
+}
+
+
+.temperature sup {
+
+    font-size: 43px;
+
+    vertical-align:
+        top;
+
+    letter-spacing: 0;
+}
+
+
+.temperature small {
+
+    font-size: 20px;
+
+    letter-spacing: 0;
+
+    opacity: 0.7;
+}
+
+
+.feels {
+
+    margin-bottom: 10px;
+
+    color:
+        var(--muted);
+
+    font-size: 13px;
+}
+
+
+.feels strong {
+
+    color: white;
+}
+
+
+/* =========================================
+   WEATHER DETAILS
+========================================= */
+
+.weather-details {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 12px;
+
+    margin-top: 40px;
+}
+
+
+.detail {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 15px;
+
+    border-radius: 17px;
+
+    background:
+        rgba(255,255,255,0.08);
+}
+
+
+.detail-icon {
+
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,0.12);
+}
+
+
+.detail span {
+
+    display: block;
+
+    font-size: 10px;
+
+    color:
+        var(--muted);
+
+    margin-bottom: 4px;
+}
+
+
+.detail strong {
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   SUN CARD
+========================================= */
+
+.sun-card {
+
+    display: grid;
+
+    grid-template-columns:
+        auto 1fr auto;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin-top: 15px;
+
+    padding:
+        21px 25px;
+
+    border-radius: 22px;
+}
+
+
+.sun-side {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.sun-side-icon {
+
+    width: 40px;
+    height: 40px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.12);
+}
+
+
+.sun-side span {
+
+    display: block;
+
+    font-size: 10px;
+
+    color:
+        var(--muted);
+}
+
+
+.sun-side strong {
+
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   SUN TRACK
+========================================= */
+
+.sun-track-area {
+
+    width: 100%;
+}
+
+
+.sun-track {
+
+    position: relative;
+
+    height: 7px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,0.18);
+}
+
+
+.sun-progress {
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffd76a,
+            #ff9d3e
+        );
+
+    transition:
+        width 1s linear;
+}
+
+
+/* =========================================
+   CURRENT TIME MARKER
+========================================= */
+
+.current-time-marker {
+
+    position: absolute;
+
+    left: 0%;
+
+    top: 50%;
