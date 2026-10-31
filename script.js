@@ -485,19 +485,17 @@ async function loadWeather(
         weatherData = result;
 
         renderWeather(
-
             weatherData,
-
             name,
-
             country,
-
             latitude,
-
             longitude
-
         );
 
+        // Clear transient UI states after successful data rendering.
+        loading.classList.add("hidden");
+        errorMessage.classList.add("hidden");
+        weatherContent.classList.remove("hidden");
 
         updateCelestialSystem();
 
