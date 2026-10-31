@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SkyCast Weather</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =====================================
+         BACKGROUND
+    ====================================== -->
+
+    <div class="sky">
+
+        <div class="stars stars-one"></div>
+        <div class="stars stars-two"></div>
+
+        <!-- Dynamic Sun -->
+        <div id="sun" class="celestial sun">
+        <div class="sun-glow"></div>
+        </div>
+
+        <!-- Dynamic Moon -->
+        <div id="moon" class="celestial moon">
+
+            <span class="crater crater-1"></span>
+            <span class="crater crater-2"></span>
+            <span class="crater crater-3"></span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         MAIN APP
+    ====================================== -->
+
+    <main class="app">
+
+        <!-- HEADER -->
+
+        <header class="header">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    <i class="fa-solid fa-cloud-sun"></i>
+                </div>
+
+                <div>
+                    <h1>SkyCast</h1>
+                    <span>Weather made beautiful</span>
+                </div>
+
+            </div>
+
+            <div class="live-clock">
+
+                <i class="fa-regular fa-clock"></i>
+
+                <span id="clock">
+                    --:--:--
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- SEARCH -->
+
+        <section class="search-section">
+
+            <form id="searchForm" class="search-box">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <input
+                    id="cityInput"
+                    type="text"
+                    placeholder="Search city..."
+                    autocomplete="off"
+                >
+
+                <button type="submit">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <span>Search</span>
+
+                </button>
+
+            </form>
+
+
+            <button
+                id="locationBtn"
+                class="location-btn"
+            >
+
+                <i class="fa-solid fa-crosshairs"></i>
+
+                My Location
+
+            </button>
+
+        </section>
+
+
+        <!-- ERROR -->
+
+        <div
+            id="errorMessage"
+            class="error hidden"
+        >
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <span id="errorText"></span>
+
+        </div>
+
+
+        <!-- LOADING -->
+
+        <div
+            id="loading"
+            class="loading hidden"
+        >
+
+            <div class="spinner"></div>
+
+            <p>Loading weather...</p>
+
+        </div>
+
+
+        <!-- =====================================
+             WEATHER CONTENT
+        ====================================== -->
+
+        <section id="weatherContent">
+
+
+            <!-- CURRENT WEATHER -->
+
+            <div class="hero-card glass">
+
+                <div class="hero-top">
+
+                    <div>
+
+                        <span class="label">
+                            CURRENT WEATHER
+                        </span>
+
+                        <h2 id="cityName">
+                            Kolkata, India
+                        </h2>
+
+                        <p id="currentDate">
+                            Loading...
+                        </p>
+
+                    </div>
+
+
+                    <div class="weather-condition">
+
+                        <i
+                            id="weatherIcon"
+                            class="fa-solid fa-sun"
+                        ></i>
+
+                        <span id="weatherDescription">
+                            Clear sky
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TEMPERATURE -->
+
+                <div class="temperature-area">
+
+                    <div class="temperature">
+
+                        <span id="temperature">
+                            --
+                        </span>
+
+                        <sup>°</sup>
+
+                        <small id="temperatureUnit">
+                            C
+                        </small>
+
+                    </div>
+
+
+                    <div class="feels">
+
+                        Feels like
+
+                        <strong id="feelsLike">
+                            --°C
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- WEATHER DETAILS -->
+
+                <div class="weather-details">
+
+
+                    <div class="detail">
+
+                        <div class="detail-icon">
+
+                            <i class="fa-solid fa-droplet"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Humidity
+                            </span>
+
+                            <strong id="humidity">
+                                --%
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <div class="detail-icon">
+
+                            <i class="fa-solid fa-wind"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Wind
+                            </span>
+
+                            <strong id="wind">
+                                -- km/h
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <div class="detail-icon">
+
+                            <i class="fa-solid fa-gauge-high"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Pressure
+                            </span>
+
+                            <strong id="pressure">
+                                -- hPa
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <div class="detail-icon">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Visibility
+                            </span>
+
+                            <strong id="visibility">
+                                -- km
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 SUNRISE / SUNSET
+            ====================================== -->
+
+            <div class="sun-card glass">
+
+
+                <!-- SUNRISE -->
+
+                <div class="sun-side">
+
+                    <div class="sun-side-icon sunrise-icon">
+
+                        <i class="fa-solid fa-sun"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Sunrise
+                        </span>
+
+                        <strong id="sunrise">
+                            --:--
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TRACK -->
+
+                <div class="sun-track-area">
+
+                    <div class="sun-track">
+
+                        <div
+                            id="sunProgress"
+                            class="sun-progress"
+                        ></div>
+
+
+                        <!-- CURRENT TIME -->
+
+                        <div
+                            id="currentTimeMarker"
+                            class="current-time-marker"
+                        >
+
+                            <div class="current-time-dot"></div>
+
+                            <div
+                                id="currentTimeLabel"
+                                class="current-time-label"
+                            >
+                                --:--
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="sun-track-labels">
+
+                        <span id="sunriseLabel">
+                            Sunrise
+                        </span>
+
+                        <span id="sunsetLabel">
+                            Sunset
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SUNSET -->
+
+                <div class="sun-side">
+
+                    <div class="sun-side-icon sunset-icon">
+
+                        <i class="fa-solid fa-moon"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Sunset
+                        </span>
+
+                        <strong id="sunset">
+                            --:--
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 SKY STATUS
+            ====================================== -->
+
+            <div class="sky-status glass">
+
+                <div class="sky-status-icon">
+
+                    <i
+                        id="skyStatusIcon"
+                        class="fa-solid fa-sun"
+                    ></i>
+
+                </div>
+
+
+                <div class="sky-status-main">
+
+                    <span id="skyStatusLabel">
+                        Daylight
+                    </span>
+
+                    <strong id="skyStatusText">
+                        Sun is above the horizon
+                    </strong>
+
+                </div>
+
+
+                <div class="sky-status-right">
+
+                    <span>
+                        Sun position
+                    </span>
+
+                    <strong id="sunPositionText">
+                        --%
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 FORECAST
+            ====================================== -->
+
+            <section class="forecast-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="label">
+                            WEATHER FORECAST
+                        </span>
+
+                        <h2>
+                            Next 7 Days
+                        </h2>
+
+                    </div>
+
+
+                    <button
+                        id="unitToggle"
+                        class="unit-toggle"
+                    >
+                        °C
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="forecastGrid"
+                    class="forecast-grid"
+                ></div>
+
+            </section>
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer>
+
+            <span>
+                Weather data by
+                <a
+                    href="https://open-meteo.com/"
+                    target="_blank"
+                >
+                    Open-Meteo
+                </a>
+            </span>
+
+            <span id="coordinates">
+                --, --
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
